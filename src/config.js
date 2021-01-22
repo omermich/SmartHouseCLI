@@ -8,7 +8,8 @@ export function initDevicesObj() {
     const status = { 
         value: false,
         type: typeof true,
-        valid: (input) => ['on', 'off'].includes(input),
+        keywords: ['on', 'off'],
+        valid: (input) => keywords.includes(input),
     };
 
     // TV Device Object.
