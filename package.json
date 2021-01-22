@@ -1,0 +1,28 @@
+{
+  "name": "@omermich/smart-home",
+  "version": "1.0.0",
+  "description": "A CLI for smart home control.",
+  "main": "src/index.js",
+  "bin": {
+    "@omermich/smart-home": "bin/smart-home",
+    "smart-home": "bin/smart-home"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "smart-home"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "arg": "^5.0.0",
+    "esm": "^3.2.25",
+    "inquirer": "^7.3.3",
+    "ncp": "^2.0.0"
+  }
+}
