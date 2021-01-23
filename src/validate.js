@@ -1,6 +1,7 @@
 import prompt from './prompt';
 
 export default {
+
     
     missingInputs: (inputs) => {
         if (!inputs.device) {
