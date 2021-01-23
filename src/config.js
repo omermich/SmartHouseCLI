@@ -1,6 +1,6 @@
 /**
  * Configurations of Devices.
- * Returns an object wrapper of all devices.
+ * Returns an JSON wrapper of all devices.
  */
 export function initDevicesObj() {
 
@@ -9,7 +9,7 @@ export function initDevicesObj() {
         value: false,
         type: typeof true,
         keywords: ['on', 'off'],
-        valid: (input) => keywords.includes(input),
+        valid: (input) => ['on', 'off'].includes(input),
     };
 
     // TV Device Object.
@@ -58,7 +58,7 @@ function numberTypeKey(defaultValue, rangeMin, rangeMax) {
             min: rangeMin,
             max: rangeMax,
         },
-        valid: (input) => intValidation(input, this.range),
+        valid: (input) => intValidation(input, rangeMin, rangeMax),
     }
 }
 
@@ -66,14 +66,14 @@ function numberTypeKey(defaultValue, rangeMin, rangeMax) {
  * Returns whether received input is valid - 
  * Convertable to int and within object key range.
  */
-function intValidation(input, range) {
+function intValidation(input, rangeMin, rangeMax) {
 
     const intTest = /^\d+$/.test(input);
     if (!intTest) return false; // if not int convertable. 
 
-    if (range !== undefined) {
-        intInput = parseInt(input);
-        return (intInput >= range.min && intInput <= range.max); // if inside range.
+    if (rangeMin !== undefined && rangeMax !== undefined) {
+        const intInput = parseInt(input);
+        return (intInput >= rangeMin && intInput <= rangeMax); // if inside range.
     }
 
     return true;
