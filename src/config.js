@@ -2,14 +2,16 @@
  * Configurations of Devices.
  * Returns an JSON wrapper of all devices.
  */
+
+
+
 export function initDevicesObj() {
 
     // Device general on/off status object.
-    const status = { 
-        value: false,
-        type: typeof true,
+    var status = { 
+        value: 'off',
+        type: typeof 'off',
         keywords: ['on', 'off'],
-        valid: (input) => ['on', 'off'].includes(input),
     };
 
     // TV Device Object.
@@ -30,7 +32,7 @@ export function initDevicesObj() {
     };
 
     // Microwave Device Object.
-    const microwave_keys = { 
+    var microwave_keys = { 
         status: status,
         temp: numberTypeKey(20, 0, 30),
         time: numberTypeKey(30, 30, 300),
@@ -58,23 +60,5 @@ function numberTypeKey(defaultValue, rangeMin, rangeMax) {
             min: rangeMin,
             max: rangeMax,
         },
-        valid: (input) => intValidation(input, rangeMin, rangeMax),
     }
-}
-
-/**
- * Returns whether received input is valid - 
- * Convertable to int and within object key range.
- */
-function intValidation(input, rangeMin, rangeMax) {
-
-    const intTest = /^\d+$/.test(input);
-    if (!intTest) return false; // if not int convertable. 
-
-    if (rangeMin !== undefined && rangeMax !== undefined) {
-        const intInput = parseInt(input);
-        return (intInput >= rangeMin && intInput <= rangeMax); // if inside range.
-    }
-
-    return true;
 }
