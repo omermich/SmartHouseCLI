@@ -1,3 +1,5 @@
+import chalk from 'chalk';
+
 /**
  * Shows helping guide,
  *  in case user entered command 'smart-home help'.
