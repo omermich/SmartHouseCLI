@@ -1,0 +1,77 @@
+{
+    "devices": {
+        "tv": {
+            "properties": ["status", "ch"]
+        },
+        "ac": {
+            "properties": ["status", "temp"]
+        },
+        "pc": {
+            "properties": ["status"]
+        },
+        "mw": {
+            "properties": ["status", "temp", "timer"]
+        }
+    },
+
+    "properties": {
+        "status": {
+            "type": "on-off"
+        },
+        "ch": {
+            "type": "number",
+            "range": {
+                "min": 1,
+                "max": 100
+            }
+        }, 
+        "ac-temp": {
+            "type": "number", 
+            "range": {
+                "min": 10,
+                "max": 30
+            }
+        },
+        "mw-temp": {
+            "type": "number", 
+            "range": {
+                "min": 0,
+                "max": 30
+            }
+        },
+        "mw-timer": {
+            "type": "number", 
+            "range": {
+                "min": 30,
+                "max": 300
+            }
+        }
+    },
+
+
+    "tv1": {
+        "device": "tv",
+        "status": "off",
+        "ch": 1
+    },
+    "tv2": {
+        "device": "tv",
+        "status": "off",
+        "ch": 2
+    },
+    "ac": {
+        "device": "ac",
+        "status": "off",
+        "ac-temp": 20
+    },
+    "pc": {
+        "device": "pc",
+        "status": "off"
+    },
+    "microwave": {
+        "device": "mw",
+        "status": "off",
+        "mw-temp": 30,
+        "mw-timer": 120
+    }
+}
