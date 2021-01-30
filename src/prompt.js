@@ -1,36 +1,42 @@
 import chalk from 'chalk';
-import inquirer from 'inquirer';
+import file, {
+    deviceConfigPath
+} from './file';
 
 export default {
-    help: (inputs, devices) => {
+    help: (devicesObj) => {
         // Shows CLI Format.
         console.log('\n\tProper CLI format is as follows: %s',
-            chalk.bold.cyan('\n  [ smart-home <device> <action> <key> <value> ]\n'));
+            chalk.bold.cyan('\n  [ smart-home <device> <action> <property> <value> ]\n'));
         console.log(chalk.grey('action: \'get\' or \'set\'.'));
         console.log(chalk.grey('value: only relevant when action = \'set\'.\n\n'));
 
-        // Shows a table of configured devices.
-        console.log(chalk.yellow('DEVICE\t  KEY\t    CRITERIA\n'));
-        for (const device in devices) {
-            console.log(chalk.bold.magenta(device));
-            for (const key in devices[device]) {
-                console.log('\t  ' + chalk.bold(key));
-                const keyObj = devices[device][key];
-                console.log('\t\t    Type: %s',
-                    chalk.green(keyObj.type));
+        const config = file.getJSON(deviceConfigPath);
 
-                // if boolean, show accepted keywords.
-                if (keyObj.type == 'boolean') {
-                    console.log('\t\t    Keywords: %s', chalk.hex('#80EE80')(
-                        keyObj.keywords[0] + ', ' +
-                        keyObj.keywords[1]));
+        // Shows a table of configured devicesObj.
+
+        console.log(chalk.bold.grey('-- ACTIVE DEVICES --\n'));
+        console.log(chalk.yellow('NAME\t\tTYPE\n'));
+        for (const device in devicesObj) {
+            console.log('%s\t\t%s',
+                chalk.bold.magenta(device),
+                chalk.white(devicesObj[device].type));
+        }
+
+        console.log(chalk.bold.grey('\n\n-- DEVICE TYPES --\n'));
+        console.log(chalk.yellow('DEVICE TYPE \t  PROPERTY \t    PROPERTY TYPE\n'));
+        for (const deviceType in config.types) {
+            console.log(chalk.bold.magenta(deviceType));
+            for (const property of config.types[deviceType].properties) {
+                console.log('\t\t  ' + chalk.bold(property));
+
+                for (const propertyKey in config.properties[property]) {
+
+                    const propertyValue = config.properties[property][propertyKey];
+                    console.log('\t\t\t\t    %s: %s',
+                        propertyKey, chalk.green(propertyValue));
+
                 }
-
-                // if number, show accepted range.
-                if (keyObj.type == 'number')
-                    console.log('\t\t    Range: %s', chalk.hex('#80EE80')(
-                        keyObj.range.min + ' - ' +
-                        keyObj.range.max));
             }
         }
         console.log('\n');
@@ -63,17 +69,17 @@ export default {
             process.exit(1);
     },
 
-    get: (device, key, value) => {
+    get: (device, property, value) => {
         console.log('%s: %s.%s is %s\n',
             chalk.blue('GET'),
-            device, key, value);
+            device, property, value);
         process.exit(0);
     },
 
-    set: (device, key, value) => {
+    set: (device, property, value) => {
         console.log('%s %s.%s set to %s\n',
             chalk.blue('SET:'),
-            device, key, value);
+            device, property, value);
         process.exit(0);
     },
 }

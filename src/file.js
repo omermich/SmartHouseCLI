@@ -1,8 +1,10 @@
 import prompt from './prompt';
 var fs = require('fs');
 
-export default {
+export const deviceListPath = './conf/device-list.json';
+export const deviceConfigPath = './conf/device-config.json';
 
+export default {
     /**
      * Reads text from file and returns it as a JSON object.
      */
@@ -17,22 +19,18 @@ export default {
             data = fs.readFileSync(path);
             json = JSON.parse(data);
         } catch (err) {
-            prompt.exception(err.toString(), 'Error reading file. Resetting Devices.', false);
-            json = initDevicesObj();
-            save(path, json);
+            prompt.exception(err.toString(), 'Error reading file.', true);
         }
         return json;
     },
 
     saveJSON: (path, json) => {
-        save(path, json);
-    },
-}
 
-/**
- * Stringifies JSON and saves it into file.
- */
-function save(path, json) {
-    const str = JSON.stringify(json, null, 4);
-    fs.writeFileSync(path, str);
+        if (!fs.existsSync(path)) { // file missing.
+            prompt.exception(path, 'File missing');
+        }
+
+        const str = JSON.stringify(json, null, 4);
+        fs.writeFileSync(path, str);
+    }
 }

@@ -1,0 +1,38 @@
+{
+    "types": {
+        "tv": {
+            "properties": ["status", "ch"]
+        },
+        "ac": {
+            "properties": ["status", "ac-temp"]
+        },
+        "pc": {
+            "properties": ["status"]
+        },
+        "mw": {
+            "properties": ["status", "mw-temp", "mw-timer"]
+        }
+    },
+
+    "properties": {
+        "status": {
+            "type": "on-off"
+        },
+        "ch": {
+            "type": "number",
+            "range": [1,100]
+        }, 
+        "ac-temp": {
+            "type": "number", 
+            "range": [10,30]
+        },
+        "mw-temp": {
+            "type": "number", 
+            "range": [0,30]
+        },
+        "mw-timer": {
+            "type": "number", 
+            "range": [30,300]
+        }
+    }
+}
