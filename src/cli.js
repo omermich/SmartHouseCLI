@@ -7,6 +7,13 @@ import parse from './parse';
 import perform from './peform';
 import prompt from './prompt';
 
+// const argEnum = {
+//     DEVICE: 0,
+//     ACTION: 1,
+//     PROPERTY: 2,
+//     VALUE: 3
+//   };
+
 /**
  * Main program function, 
  * calls all relevant functions by order.
